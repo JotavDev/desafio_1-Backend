@@ -1,64 +1,56 @@
-// Se hace declaración de la clase "Product Manager"
 class ProductManager{
 
-    // Función constructora
-    constructor(title, description, price, imageUrl, stock){
-        this.title = title,
-        this.description = description,
-        this.price = price,
-        this.imageUrl = imageUrl,
-        this.stock = stock
+    constructor(){
+        this.products = [];
     }
 
-    // Método de agregado
-    static addProducts(constructor){
-        let lastcode = 
-        products.length != 0 ? products[products.length - 1].code : 0;
-        constructor.code = ++lastcode;
-        products.push(constructor);
+    getProducts(){
+        console.log(this.products);
     }
 
-    // Método de devolución
-    static getProducts(){
-        console.log(products)
-    }
-
-    // Método de devolución por id
-    static getProductById(code){
-        let identificador = products.find((prod) => prod.code == code)
-        if(identificador){
-            console.log(`Tu producto es ${identificador.title}`)
-        } else {
-            console.log("Ninguno de tus productos coincide con el ID seleccionado")
+    addProduct(title, description, price, image, stock){
+        const product = {
+            title: title,
+            description: description,
+            price: price,
+            image: image,
+            stock: stock
         }
+
+        if(
+            product.title &&
+            product.description &&
+            product.price &&
+            product.image &&
+            product.stock
+        ){
+            this.products.push(product)
+        } else {
+            console.log("Tienes que incluir toda la información de este artículo")
+        }
+
+        this.products.length === 0 ? product.id = 0 : product.id = this.products.length;
+    }
+
+    getProductById(id){
+        let identificador = this.products.find((prod) => prod.id == id)
+        identificador ? console.log(`Tu producto es ${identificador.title}`) : console.log("Ninguno de tus productos coincide con el ID seleccionado")
     }
 }
 
-// En la variable products se almacenarán los productos
-const products = [];
+const productos = new ProductManager();
 
 // Añadiendo productos con el método addProducts
-ProductManager.addProducts(
-    new ProductManager("Lugia V", "Carta de Pokémon TCG correspondiente a la expansión de Tempestad plateada", 12.99, "https://i.imgur.com/w9Cwyc7.jpg", 30)
-);
+productos.addProduct("Lugia V", "Carta de Pokémon TCG correspondiente a la expansión de Tempestad plateada", 12.99, "https://i.imgur.com/w9Cwyc7.jpg", 30);
+productos.addProduct("Lugia VStar", "Carta de Pokémon TCG correspondiente a la expansión de Tempestad plateada", 21.99, "https://i.imgur.com/UKZV1DE.jpg", 15);
+productos.addProduct("Mew V", "Carta de Pokémon TCG correspondiente a la expansión de Fusion Strike", 3.49, "https://i.imgur.com/j4OvW3h.jpg", 15);
+productos.addProduct("Mew VMax", "Carta de Pokémon TCG correspondiente a la expansión de Fusion Strike", 5.99, "https://i.imgur.com/pOZDgj8.jpg", 6);
 
-ProductManager.addProducts(
-    new ProductManager("Lugia VStar", "Carta de Pokémon TCG correspondiente a la expansión de Tempestad plateada", 21.99, "https://i.imgur.com/UKZV1DE.jpg", 15)
-);
-
-ProductManager.addProducts(
-    new ProductManager("Mew V", "Carta de Pokémon TCG correspondiente a la expansión de Fusion Strike", 3.49, "https://i.imgur.com/j4OvW3h.jpg", 15)
-);
-
-ProductManager.addProducts(
-    new ProductManager("Mew VMax", "Carta de Pokémon TCG correspondiente a la expansión de Fusion Strike", 5.99, "https://i.imgur.com/pOZDgj8.jpg", 6)
-);
+// Añadiendo un producto sin toda la información, devuelve por consola mensaje
+productos.addProduct("Pikachu V", 5.99, "https://i.imgur.com/pOZDgj8.jpg");
 
 // Probando el método getProducts
-ProductManager.getProducts();
+productos.getProducts();
 
 // Probamos el método getProductsById
-ProductManager.getProductById(2);
-
-// Verificando que los productos estén todos en el array
-console.log(`Tienes un total de ${products.length} productos en tu tienda`)
+productos.getProductById(3);
